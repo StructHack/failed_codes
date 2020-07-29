@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html><head><title>this is a title</title>
+	<style>
+	body{
+		font-size:1.1em;
+		font-family: monospace;
+		line-height: 0.6;
+	}
+	#x{
+		vertical-align: text-top;
+	}
+</style>
+</head>
+<body>
+	<p>THIS IS AN EXAMPLE TEST</p>
+	<pre><div id="print_here"></div></pre>
+	<script type="text/javascript">
+		let root = window.document;
+		var dom = [];
+		var tabs=" ";
+		var print_dom = "";
+		function traverse(node){
+			var temp_tabs = tabs;
+			if(!node){
+				return;
+			}
+			var node_len = node.childNodes.length;
+			var visited = [];
+			for(let x=0;x<node_len;x++){
+				if( x == 0){
+					tabs = tabs + " <span id=x style='letter-spacing:-6px'>|</span>";
+				}
+				visited.push[x];
+				//console.log(node.childNodes[x]);
+				window.dom.push(node.childNodes[x].nodeName);
+				//console.log(node.childNodes[x].nodeName)
+				if(node.childNodes[x].nodeType == Node.ELEMENT_NODE || node.childNodes[x].nodeType == Node.DOCUMENT_TYPE_NODE){
+					print_dom += tabs+"<span style='letter-spacing:-4px'>----</span> <b><span style='color:purple'>"+node.childNodes[x].nodeName+"</span></b>";
+					//console.log("ssss")
+				}
+				else{
+					print_dom += tabs+"<span style='letter-spacing:-4px'>----</span> <span style='color:#333'>"+node.childNodes[x].nodeName+":</span>";
+				}
+				
+				if(node.childNodes[x].nodeType == Node.TEXT_NODE){
+					if(!(/^[\n|\t| ]+$/.test(node.childNodes[x].data.toString()))){print_dom+= "<span style='color:green;font-style:italic'> "+node.childNodes[x].nodeValue.toString().replace(/[\n|\t]/g,'')+"</span>"};
+				}
+				print_dom+="\n";
+				console.log((/[a]/g).exec(tabs));
+				if(x == node_len-1){
+					tabs = tabs.replace(/[|]/," ");
+
+				}
+				//tabs = tabs.replace(/[\|]/," ");
+				traverse(node.childNodes[x]);
+			}
+			tabs = temp_tabs
+
+		}
+		traverse(root);
+		document.querySelector("#print_here").innerHTML = print_dom;
+	</script>
+	<!--sdfsdfsdf-->
+</body>
+</html>
